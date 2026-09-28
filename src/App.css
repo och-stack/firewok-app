@@ -1,1 +1,66 @@
+body {
+    margin: 0;
+    background: linear-gradient(135deg,
+            #fff0c2,
+            #ffd08a,
+            #ff9a5c,
+            #e85d3f);
+    background-attachment: fixed;
+    color: #292929;
+}
 
+/* Hero */
+.hero {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.logo {
+    width: 130px;
+    transition: transform 0.3s ease;
+}
+
+.firewok-title {
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    font-size: 80px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.firewok-title span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.hero:hover .logo {
+    transform: translate(-12px, -20px) rotate(-5deg);
+}
+
+.hero:hover .word-fire {
+    transform: translate(-12px, -20px) rotate(-5deg);
+}
+
+.hero:hover .word-wok {
+    transform: translate(15px, -30px) rotate(6deg);
+}
+
+/* Create Dish */
+.form-card {
+    max-width: 700px;
+}
+
+.section-spacing {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.recipe-name {
+    color: #e85d04;
+    font-weight: 700;
+}

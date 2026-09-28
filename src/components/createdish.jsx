@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function CreateDish({ API }) {
+function CreateDish({ API, refreshRecipes }) {
     const [name, setName] = useState("");
     const [ingredients, setIngredients] = useState("");
     const [instructions, setInstructions] = useState("");
@@ -29,7 +29,7 @@ function CreateDish({ API }) {
             return;
         }
 
-        await fetch(API.createRecipe, {
+        const response = await fetch(API.createRecipe, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -42,6 +42,13 @@ function CreateDish({ API }) {
                 instructions,
             }),
         });
+
+        if (!response.ok) {
+            alert("Failed to add dish.");
+            return;
+        }
+
+        refreshRecipes();
 
         setName("");
         setIngredients("");
@@ -57,8 +64,10 @@ function CreateDish({ API }) {
             <h2 className="mb-3">Create New Dish</h2>
 
             <form onSubmit={handleSubmit}>
+
                 {/* Dish Details */}
                 <div className="row g-3 mb-3">
+
                     <div className="col-md-4">
                         <input
                             className="form-control"
@@ -100,11 +109,11 @@ function CreateDish({ API }) {
                             ))}
                         </select>
                     </div>
+
                 </div>
 
                 {/* Ingredients */}
                 <div className="mb-3">
-
                     <textarea
                         className="form-control"
                         rows="5"
@@ -116,7 +125,6 @@ function CreateDish({ API }) {
 
                 {/* Instructions */}
                 <div className="mb-3">
-
                     <textarea
                         className="form-control"
                         rows="8"
@@ -129,6 +137,7 @@ function CreateDish({ API }) {
                 <button className="btn btn-dark" type="submit">
                     Create New Dish
                 </button>
+
             </form>
         </div>
     );

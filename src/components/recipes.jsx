@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
 
-function Recipes({ API }) {
-    const [recipes, setRecipes] = useState([]);
+function Recipes({ recipes, API }) {
     const [categories, setCategories] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     const recipesPerPage = 4;
 
     useEffect(() => {
-        fetch(API.recipes)
-            .then((response) => response.json())
-            .then((data) => setRecipes(data));
-
         fetch(API.categories)
             .then((response) => response.json())
             .then((data) => setCategories(data));
@@ -101,8 +96,8 @@ function Recipes({ API }) {
                             <button
                                 key={index + 1}
                                 className={`btn ${currentPage === index + 1
-                                    ? "btn-dark"
-                                    : "btn-outline-dark"
+                                        ? "btn-dark"
+                                        : "btn-outline-dark"
                                     }`}
                                 onClick={() =>
                                     handlePageChange(index + 1)

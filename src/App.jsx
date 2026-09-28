@@ -21,7 +21,14 @@ const API = {
 
 // Main App
 function App() {
+  const [recipes, setRecipes] = useState([]);
   const [users, setUsers] = useState([]);
+
+  function refreshRecipes() {
+    fetch(API.recipes)
+      .then((response) => response.json())
+      .then((data) => setRecipes(data));
+  }
 
   function refreshUsers() {
     fetch(API.users)
@@ -30,6 +37,7 @@ function App() {
   }
 
   useEffect(() => {
+    refreshRecipes();
     refreshUsers();
   }, []);
 
@@ -52,7 +60,7 @@ function App() {
       </section>
 
       {/* Recipes */}
-      <Recipes API={API} />
+      <Recipes recipes={recipes} API={API} />
 
       {/* Wok Control */}
       <section className="container section-spacing">
@@ -62,7 +70,10 @@ function App() {
 
           {/* Create New Dish */}
           <div className="col-lg-8">
-            <CreateDish API={API} />
+            <CreateDish
+              API={API}
+              refreshRecipes={refreshRecipes}
+            />
           </div>
 
           {/* Author Management */}

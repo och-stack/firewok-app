@@ -41,42 +41,28 @@ FireWok is a recipe management application built with React and connected to a h
 
 https://firewok-api-production.up.railway.app
 
+## Database
+
+The application uses **PostgreSQL with Supabase** to store recipes, authors, and categories.
 
 ## Error Handling
 
 The API handles common errors including:
 
-* Missing required fields
-* Invalid recipe IDs
-* Recipe not found
-* Invalid author or category
-* Duplicate author email
-* Database errors
-
-## Project Structure
-
-src/
-├── components/
-│   ├── recipes.jsx
-│   ├── createdish.jsx
-│   ├── addauthor.jsx
-│   └── authorlist.jsx
-├── App.jsx
-└── App.css
-
-
-## Run Locally
-
-
-npm install
-npm run dev
+- Missing required fields
+- Invalid recipe IDs
+- Recipe not found
+- Invalid author or category
+- Duplicate author email
+- Database errors
 
 ## Deployment
 
-* Backend API: Railway
-* Database: Supabase PostgreSQL
-* Frontend: React/Vite application
+- Backend API: Railway
+- Database: Supabase PostgreSQL
+- Frontend: React/Vite application
 
 ## Testing
 
 API endpoints were tested using Postman, including successful requests and common error cases.
+

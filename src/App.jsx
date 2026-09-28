@@ -1,202 +1,84 @@
 import { useEffect, useState } from "react";
 
-// Replace these URLs with your own API endpoints
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+
+import Recipes from "./components/recipes";
+import CreateDish from "./components/createdish";
+import AddAuthor from "./components/addauthor";
+import AuthorList from "./components/authorlist";
+
+// FireWok API
 const API = {
-  recipes: "https://your-api.com/recipes",
-  recipeById: "https://your-api.com/recipes/1",
-  createRecipe: "https://your-api.com/recipes",
+  recipes: "https://firewok-api-production.up.railway.app/recipes",
+  createRecipe: "https://firewok-api-production.up.railway.app/recipes",
 
-  users: "https://your-api.com/users",
-  createUser: "https://your-api.com/users",
+  users: "https://firewok-api-production.up.railway.app/users",
+  createUser: "https://firewok-api-production.up.railway.app/users",
 
-  categories: "https://your-api.com/categories",
+  categories: "https://firewok-api-production.up.railway.app/categories",
 };
 
-function Recipes() {
-  const [recipes, setRecipes] = useState([]);
-
-  useEffect(() => {
-    fetch(API.recipes)
-      .then((response) => response.json())
-      .then((data) => setRecipes(data));
-  }, []);
-
-  return (
-    <section>
-      <h2>Recipes</h2>
-
-      {recipes.map((recipe) => (
-        <article key={recipe.id}>
-          <h3>{recipe.name}</h3>
-          <p>{recipe.ingredients}</p>
-          <p>{recipe.instructions}</p>
-          <small>
-            Author: {recipe.author} | Category: {recipe.category}
-          </small>
-        </article>
-      ))}
-    </section>
-  );
-}
-
-function AddRecipe() {
-  const [name, setName] = useState("");
-  const [ingredients, setIngredients] = useState("");
-  const [instructions, setInstructions] = useState("");
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    await fetch(API.createRecipe, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        ingredients,
-        instructions,
-      }),
-    });
-
-    setName("");
-    setIngredients("");
-    setInstructions("");
-
-    alert("Recipe added!");
-  }
-
-  return (
-    <section>
-      <h2>Add Recipe</h2>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Recipe name"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-
-        <textarea
-          placeholder="Ingredients"
-          value={ingredients}
-          onChange={(event) => setIngredients(event.target.value)}
-        />
-
-        <textarea
-          placeholder="Instructions"
-          value={instructions}
-          onChange={(event) => setInstructions(event.target.value)}
-        />
-
-        <button type="submit">Add Recipe</button>
-      </form>
-    </section>
-  );
-}
-
-function Users() {
+// Main App
+function App() {
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
+  function refreshUsers() {
     fetch(API.users)
       .then((response) => response.json())
       .then((data) => setUsers(data));
-  }, []);
-
-  return (
-    <section>
-      <h2>Users</h2>
-
-      {users.map((user) => (
-        <p key={user.id}>
-          {user.name} - {user.email}
-        </p>
-      ))}
-    </section>
-  );
-}
-
-function AddUser() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    await fetch(API.createUser, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-      }),
-    });
-
-    setName("");
-    setEmail("");
-
-    alert("User added!");
   }
 
-  return (
-    <section>
-      <h2>Add User</h2>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Name"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-
-        <input
-          placeholder="Email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-
-        <button type="submit">Add User</button>
-      </form>
-    </section>
-  );
-}
-
-function Categories() {
-  const [categories, setCategories] = useState([]);
-
   useEffect(() => {
-    fetch(API.categories)
-      .then((response) => response.json())
-      .then((data) => setCategories(data));
+    refreshUsers();
   }, []);
 
   return (
-    <section>
-      <h2>Categories</h2>
-
-      {categories.map((category) => (
-        <p key={category.id}>{category.name}</p>
-      ))}
-    </section>
-  );
-}
-
-function App() {
-  return (
     <main>
-      <h1>KitchenBase</h1>
-      <p>A simple recipe collection.</p>
+      {/* Hero */}
+      <section className="hero container-fluid">
+        <img
+          src="/pan.png"
+          alt="FireWok logo"
+          className="logo"
+        />
 
-      <Recipes />
-      <AddRecipe />
+        <h1 className="firewok-title">
+          <span className="word-fire">Fire</span>
+          <span className="word-wok">Wok</span>
+        </h1>
 
-      <Users />
-      <AddUser />
+        <p>Let Your Taste Buds Spark</p>
+      </section>
 
-      <Categories />
+      {/* Recipes */}
+      <Recipes API={API} />
+
+      {/* Wok Control */}
+      <section className="container section-spacing">
+        <h2 className="text-center mb-2">👨‍🍳 Wok Control</h2>
+
+        <div className="row g-4">
+
+          {/* Create New Dish */}
+          <div className="col-lg-8">
+            <CreateDish API={API} />
+          </div>
+
+          {/* Author Management */}
+          <div className="col-lg-4">
+            <AddAuthor
+              API={API}
+              refreshUsers={refreshUsers}
+            />
+
+            <div className="mt-3">
+              <AuthorList users={users} />
+            </div>
+          </div>
+
+        </div>
+      </section>
     </main>
   );
 }

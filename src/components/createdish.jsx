@@ -24,6 +24,7 @@ function CreateDish({ API, refreshRecipes }) {
     async function handleSubmit(event) {
         event.preventDefault();
 
+        //handle error/edge-case protections
         if (!name || !ingredients || !authorId || !categoryId || !instructions) {
             alert("Please complete all fields.");
             return;
@@ -43,6 +44,7 @@ function CreateDish({ API, refreshRecipes }) {
             }),
         });
 
+        //handle error/edge-case protections
         if (!response.ok) {
             alert("Failed to add dish.");
             return;

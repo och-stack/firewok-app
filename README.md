@@ -1,8 +1,11 @@
-# FireWok
+# <img src="./public/pan.png" alt="Pan" width="40"> FireWok
 
 **Let Your Taste Buds Spark**
 
 FireWok is a recipe management application built with React and connected to a hosted Express API.
+
+![dashboard](./public/firewok.png)
+Image 1: This is the image for the website.
 
 ## Features
 

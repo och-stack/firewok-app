@@ -7,6 +7,9 @@ FireWok is a recipe management application built with React and connected to a h
 ![dashboard](./public/firewok.png)
 Image 1: This is the image for the website.
 
+## Frontend Base URL
+https://firewok-app-flax.vercel.app/
+
 ## Features
 
 - View recipes
@@ -21,7 +24,6 @@ Image 1: This is the image for the website.
 ## Tech Stack
 
 - React
-- Vite
 - JavaScript
 - Bootstrap
 - Express
@@ -61,9 +63,9 @@ The API handles common errors including:
 
 ## Deployment
 
-- Backend API: Railway
+- Backend API: Railway application
 - Database: Supabase PostgreSQL
-- Frontend: React/Vite application
+- Frontend: Vercel application
 
 ## Testing
 
